@@ -9,7 +9,7 @@ export const PlayerTotalStati = ({idPlayer}) => {
    }, [idPlayer])
 
    const getPlayerStati = async() => {
-      const totalStati = await axios(`https://apiavemaria.onrender.com/api/viewPlayerTotalStati/${idPlayer}`);
+      const totalStati = await axios(`https://apitorneoliga.onrender.com/api/viewPlayerTotalStati/${idPlayer}`);
       setPlayerTotalStati(totalStati.data);
    }
 

@@ -42,7 +42,7 @@ const Home = () => {
       }
    })
 
-   const url = 'https://apiavemaria.onrender.com/api/'
+   const url = 'https://apitorneoliga.onrender.com/api/'
 
    const [calendar, setCalendar] = useState([]);
    const [calendarPlayOff, setCalendarPlayOff] = useState([]);

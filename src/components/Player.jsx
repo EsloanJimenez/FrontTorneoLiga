@@ -18,7 +18,7 @@ export const Player = ({ player }) => {
                   <aside>
                      <p>{reg.fullName}</p>
                      <p>{reg.jacket}</p>
-                     <img src={`https://apiavemaria.onrender.com/${reg.photo}`} alt="imagen rota" />
+                     <img src={`https://apitorneoliga.onrender.com/${reg.photo}`} alt="imagen rota" />
                   </aside>
 
                   <table>

@@ -9,7 +9,7 @@ export const PlayerPercentageStati = ({idPlayer}) => {
    }, [idPlayer])
 
    const getPlayerStati = async() => {
-      const PercentageStati = await axios(`https://apiavemaria.onrender.com/api/viewPlayerPercentageStati/${idPlayer}`);
+      const PercentageStati = await axios(`https://apitorneoliga.onrender.com/api/viewPlayerPercentageStati/${idPlayer}`);
       setPlayerPercentageStati(PercentageStati.data);
    }
 

@@ -15,8 +15,8 @@ import '../css/register.css'
 import '../css/buttons.css'
 
 export const StatisticsPerGamePlayOff = () => {
-   const url = 'https://apiavemaria.onrender.com/api/'
-   const urlOp = 'https://apiavemaria.onrender.com/api/operationStatistiPlayOff/';                                   
+   const url = 'https://apitorneoliga.onrender.com/api/'
+   const urlOp = 'https://apitorneoliga.onrender.com/api/operationStatistiPlayOff/';                                   
 
    const [team1, setTeam1] = useState([]);
    const [team2, setTeam2] = useState([]);
@@ -631,7 +631,7 @@ export const StatisticsPerGamePlayOff = () => {
                      {
                         team1.map((reg, index) => (
                            <tr key={reg.idStatistic}>
-                              <td>{<img className="imgStatist" src={`https://apiavemaria.onrender.com/${reg.photo}` } alt="imagen rota" />}</td>
+                              <td>{<img className="imgStatist" src={`https://apitorneoliga.onrender.com/${reg.photo}` } alt="imagen rota" />}</td>
                               <td>{reg.fullName}</td>
                               <td>{reg.jacket}</td>
                               <td>
@@ -695,7 +695,7 @@ export const StatisticsPerGamePlayOff = () => {
                      {
                         team2.map((reg,index) => (
                            <tr key={reg.idStatistic}>
-                              <td>{<img className="imgStatist" src={`https://apiavemaria.onrender.com/${reg.photo}` } alt="imagen rota" />}</td>
+                              <td>{<img className="imgStatist" src={`https://apitorneoliga.onrender.com/${reg.photo}` } alt="imagen rota" />}</td>
                               <td>{reg.fullName}</td>
                               <td>{reg.jacket}</td>
                               <td>

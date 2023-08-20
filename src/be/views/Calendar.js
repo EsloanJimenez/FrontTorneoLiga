@@ -16,8 +16,8 @@ import '../css/buttons.css'
 export const Calendar = () => {
    let parameters;
 
-   const url = 'https://apiavemaria.onrender.com/api/calendar';
-   const urlOp = 'https://apiavemaria.onrender.com/api/updateCalendar/';
+   const url = 'https://apitorneoliga.onrender.com/api/calendar';
+   const urlOp = 'https://apitorneoliga.onrender.com/api/updateCalendar/';
 
    const [calendar, setCalendar] = useState([]);
    const [ids, setIds] = useState('');
@@ -41,7 +41,7 @@ export const Calendar = () => {
       const res = await axios.get(url);
       setCalendar(res.data);
       
-      const reg = await axios.get('https://apiavemaria.onrender.com/api/team');
+      const reg = await axios.get('https://apitorneoliga.onrender.com/api/team');
       setTeamList(reg.data);
    }
 
@@ -125,7 +125,7 @@ export const Calendar = () => {
                body: JSON.stringify(parameters)
             }
       
-            fetch('https://apiavemaria.onrender.com/api/updateCalendar/' + ids, requestInit)
+            fetch('https://apitorneoliga.onrender.com/api/updateCalendar/' + ids, requestInit)
             .then(res => res.text())
             .then(res => {
                let msj = 'Calendario Actualizado';
@@ -160,7 +160,7 @@ export const Calendar = () => {
                method: 'DELETE'
             }
       
-            fetch('https://apiavemaria.onrender.com/api/deleteCalendar/' + id, requestInit)
+            fetch('https://apitorneoliga.onrender.com/api/deleteCalendar/' + id, requestInit)
             .then(res => res.text())
             .then(res => console.log(res))
 
@@ -265,7 +265,7 @@ export const Calendar = () => {
                               <td>{reg.idCalendar}</td>
                               <td>{reg.nameGame}</td>
                               <td>{reg.team1}</td>
-                              <td>{<img src={`https://apiavemaria.onrender.com/${reg.photoTeam1}` } alt="imagen rota" />}</td>
+                              <td>{<img src={`https://apitorneoliga.onrender.com/${reg.photoTeam1}` } alt="imagen rota" />}</td>
                               <td>{reg.date}</td>
                               <td>
                                  <button type="button" className="btn btn-delete" onClick={()=> gameRoom(index, reg, false)}>-</button>
@@ -274,7 +274,7 @@ export const Calendar = () => {
                               </td>
                               <td>{reg.time}</td>
                               <td>{reg.team2}</td>
-                              <td>{<img src={`https://apiavemaria.onrender.com/${reg.photoTeam2}` } alt="imagen rota" />}</td>
+                              <td>{<img src={`https://apitorneoliga.onrender.com/${reg.photoTeam2}` } alt="imagen rota" />}</td>
                               <td>
                                  <button type="button" className="btn btn-delete" onClick={()=> gameStatus(index, reg, false)}>-</button>
                                  {reg.status}

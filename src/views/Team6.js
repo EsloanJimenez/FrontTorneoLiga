@@ -20,7 +20,7 @@ export const Team6 = () => {
    }, [])
 
    const getPlayer = async () => {
-      const py = await axios(`https://apiavemaria.onrender.com/api/viewTeam1/6`);
+      const py = await axios(`https://apitorneoliga.onrender.com/api/viewTeam1/6`);
       setPlayer(py.data);
    }
 

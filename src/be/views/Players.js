@@ -14,7 +14,7 @@ import '../css/register.css'
 import '../css/buttons.css'
 
 export const Players = () => {
-   const url = 'https://apiavemaria.onrender.com/api/player'
+   const url = 'https://apitorneoliga.onrender.com/api/player'
 
    const [players, setPlayers] = useState([]);
    const [teamList, setTeamList] = useState([]);
@@ -36,7 +36,7 @@ export const Players = () => {
       const res = await axios(url);
       setPlayers(res.data);
 
-      const reg = await axios('https://apiavemaria.onrender.com/api/team');
+      const reg = await axios('https://apitorneoliga.onrender.com/api/team');
       setTeamList(reg.data);
    }
 
@@ -116,7 +116,7 @@ export const Players = () => {
                body: JSON.stringify(parameters)
             }
       
-            fetch('https://apiavemaria.onrender.com/api/updatePlayer/' + ids, requestInit)
+            fetch('https://apitorneoliga.onrender.com/api/updatePlayer/' + ids, requestInit)
             .then(res => res.text())
             .then(res => {
                let msj = 'Jugador Actualizado';
@@ -149,7 +149,7 @@ export const Players = () => {
                method: 'DELETE'
             }
       
-            fetch('https://apiavemaria.onrender.com/api/deletePlayer/' + id, requestInit)
+            fetch('https://apitorneoliga.onrender.com/api/deletePlayer/' + id, requestInit)
             .then(res => res.text())
             .then(res => console.log(res))
 
@@ -187,7 +187,7 @@ export const Players = () => {
                         players.map((reg) => (
                            <tr key={reg.idPlayer}>
                               <td>{reg.idPlayer}</td>
-                              <td>{<img src={`https://apiavemaria.onrender.com/${reg.photo}` } alt="imagen rota" />}</td>
+                              <td>{<img src={`https://apitorneoliga.onrender.com/${reg.photo}` } alt="imagen rota" />}</td>
                               <td>{reg.fullName}</td>
                               <td>{reg.nameTeam}</td>
                               <td>{reg.jacket}</td>
@@ -211,7 +211,7 @@ export const Players = () => {
                   </div>
 
                   <div className="card-body">
-                     <form action="https://apiavemaria.onrender.com/api/player" method="post" enctype="multipart/form-data">
+                     <form action="https://apitorneoliga.onrender.com/api/player" method="post" enctype="multipart/form-data">
                         <div className="mb-3">
                               <label for="photo" className="form-label">Foto</label>
                               <input type="file" className="form-control" id="photo" name="photo" onChange={(e) => setPhoto(e.target.files[0].name)} />
