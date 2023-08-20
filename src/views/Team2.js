@@ -5,7 +5,7 @@ import { Header } from "../components/Header";
 
 import '../css/teams.css';
 
-import teamRed from '../images/teams/red.jpeg';
+import teamYellow from '../images/teams/AveMaria.jpg';
 import { Player } from "../components/Player";
 import { Footer } from "../components/Footer";
 
@@ -46,7 +46,7 @@ export const Team2 = () => {
       <>
          <div className="team">
             <div className="BannerHome">
-               <img src={teamRed} />
+               <img src={teamYellow} />
             </div>
          </div>
 
