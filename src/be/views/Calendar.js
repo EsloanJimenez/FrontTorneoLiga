@@ -89,7 +89,7 @@ export const Calendar = () => {
       if(nameGame.trim() === "") show_alerta('Escriba el nombre del partido', 'warning')
       else {
          if(operation === 1) {
-            parameters = {nameGame: nameGame.trim(), gameDate: gameDate.trim(), team1: team1.trim(), team2:team2.trim(), photoTeam1: photoTeam1.trim(), photoTeam2: photoTeam2.trim(), status: status};
+            parameters = {nameGame: nameGame, gameDate: gameDate, team1: team1, team2:team2, photoTeam1: photoTeam1, photoTeam2: photoTeam2, status: status};
 
             const requestInit = {
                method: 'POST',
@@ -100,9 +100,8 @@ export const Calendar = () => {
             fetch(url, requestInit)
             .then(res => res.text())
             .then(res => {
-               let msj = 'Calendario Registrado';
             
-               show_alerta(msj, 'success');
+               show_alerta('Calendario Registrado', 'success');
    
                if(res === 'success') {
                   document.querySelector('#photoTeam1').value = null;

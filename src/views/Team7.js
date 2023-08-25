@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios';
 
-import { Header } from "../components/Header";
+import {Header} from "../components/Header";
 
 import '../css/teams.css';
 
-import teamBlue from '../images/teams/TeamCristian.jpg';
+import teamRed from '../images/teams/CartonesCity.jpg';
 import { Player } from "../components/Player";
-import { Footer } from "../components/Footer";
+import { Footer } from '../components/Footer';
 
-export const Team5 = () => {
+export const Team6 = () => {
    const url = 'https://apitorneoliga.onrender.com/api/';
 
    const [player, setPlayer] = useState([]);
    const [visitCounter, setVisitCounter] = useState();
-
+   
    useEffect(() => {
       getPlayer();
       getCounterVisit();
@@ -25,40 +25,40 @@ export const Team5 = () => {
    }, [])
 
    const getPlayer = async () => {
-      const py = await axios(`${url}viewTeam1/5`);
+      const py = await axios(`${url}viewTeam1/7`);
       setPlayer(py.data);
    }
 
    const getCounterVisit = async () => {
-      const vc = await axios(`${url}countVisitTeam5`);
+      const vc = await axios(`${url}countVisitTeam7`);
       setVisitCounter(vc.data[0].visitTeam3);
 
       setCounterVisit();
    }
 
    const setCounterVisit = () => {
-      axios.post(`${url}countVisitTeam5`, {
+      axios.post(`${url}countVisitTeam7`, {
          page: 'Salome Ureña'
       })
    }
 
-   return (
+   return(
       <>
          <div className="team">
             <div className="BannerHome">
-               <div id="court"><img src={teamBlue} /></div>
+               <img src={teamRed} />
             </div>
          </div>
 
          <Header />
 
          <Player
-            player={player}
+            player = {player}
          />
 
          <Footer
             visitCounter={visitCounter}
-         />
+         /> 
       </>
    )
 }

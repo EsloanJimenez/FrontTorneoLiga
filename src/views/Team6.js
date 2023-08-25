@@ -7,12 +7,17 @@ import '../css/teams.css';
 
 import teamRed from '../images/teams/CartonesCity.jpg';
 import { Player } from "../components/Player";
+import { Footer } from '../components/Footer';
 
 export const Team6 = () => {
+   const url = 'https://apitorneoliga.onrender.com/api/';
+
    const [player, setPlayer] = useState([]);
+   const [visitCounter, setVisitCounter] = useState();
    
    useEffect(() => {
       getPlayer();
+      getCounterVisit();
 
       setInterval(() => {
          getPlayer();
@@ -20,8 +25,21 @@ export const Team6 = () => {
    }, [])
 
    const getPlayer = async () => {
-      const py = await axios(`https://apitorneoliga.onrender.com/api/viewTeam1/6`);
+      const py = await axios(`${url}viewTeam1/6`);
       setPlayer(py.data);
+   }
+
+   const getCounterVisit = async () => {
+      const vc = await axios(`${url}countVisitTeam6`);
+      setVisitCounter(vc.data[0].visitTeam3);
+
+      setCounterVisit();
+   }
+
+   const setCounterVisit = () => {
+      axios.post(`${url}countVisitTeam6`, {
+         page: 'Salome Ureña'
+      })
    }
 
    return(
@@ -37,6 +55,10 @@ export const Team6 = () => {
          <Player
             player = {player}
          />
+
+         <Footer
+            visitCounter={visitCounter}
+         /> 
       </>
    )
 }
