@@ -8,6 +8,9 @@ import { Team3 } from "./views/Team3";
 import { Team4 } from "./views/Team4";
 import { Team5 } from "./views/Team5";
 import { Team6 } from "./views/Team6";
+import { Team7 } from "./views/Team7";
+import { Team8 } from "./views/Team8";
+import { Team9 } from "./views/Team9";
 import Leaders from "./views/Leaders";
 import LeadersPlayOff from "./views/LeadersPlayOff";
 
@@ -32,6 +35,9 @@ const App = () => {
         <Route exact path="/views/4" element={<Team4 />} />
         <Route exact path="/views/5" element={<Team5 />} />
         <Route exact path="/views/6" element={<Team6 />} />
+        <Route exact path="/views/7" element={<Team7 />} />
+        <Route exact path="/views/8" element={<Team8 />} />
+        <Route exact path="/views/9" element={<Team9 />} />
         <Route exact path="/views/leadersRegular" element={<Leaders />} />
         <Route exact path="/views/leadersPlayOff" element={<LeadersPlayOff />} />
 
