@@ -30,15 +30,15 @@ export const Team2 = () => {
    }
 
    const getCounterVisit = async () => {
-      const vc = await axios(`${url}countVisitTeam2`);
-      setVisitCounter(vc.data[0].visitTeam2);
+      const vc = await axios(`${url}countVisitPage`);
+      setVisitCounter(vc.data[0].visitPage);
 
       setCounterVisit();
    }
 
    const setCounterVisit = () => {
-      axios.post(`${url}countVisitTeam2`, {
-         page: 'El Invi'
+      axios.post(`${url}countVisitPage`, {
+         page: 'Ave Maria'
       })
    }
 

@@ -35,7 +35,7 @@ const App = () => {
         <Route exact path="/views/4" element={<Team4 />} />
         <Route exact path="/views/5" element={<Team5 />} />
         <Route exact path="/views/6" element={<Team6 />} />
-        <Route exact path="/views/7" element={<Team7 />} />
+        <Route exact path='/views/7' element={<Team7 />} />
         <Route exact path="/views/8" element={<Team8 />} />
         <Route exact path="/views/9" element={<Team9 />} />
         <Route exact path="/views/leadersRegular" element={<Leaders />} />

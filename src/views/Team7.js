@@ -9,7 +9,7 @@ import teamRed from '../images/teams/CartonesCity.jpg';
 import { Player } from "../components/Player";
 import { Footer } from '../components/Footer';
 
-export const Team6 = () => {
+export const Team7 = () => {
    const url = 'https://apitorneoliga.onrender.com/api/';
 
    const [player, setPlayer] = useState([]);
@@ -30,15 +30,15 @@ export const Team6 = () => {
    }
 
    const getCounterVisit = async () => {
-      const vc = await axios(`${url}countVisitTeam7`);
-      setVisitCounter(vc.data[0].visitTeam3);
+      const vc = await axios(`${url}countVisitPage`);
+      setVisitCounter(vc.data[0].visitPage);
 
       setCounterVisit();
    }
 
    const setCounterVisit = () => {
-      axios.post(`${url}countVisitTeam7`, {
-         page: 'Salome Ureña'
+      axios.post(`${url}countVisitPage`, {
+         page: 'Rejected'
       })
    }
 

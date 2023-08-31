@@ -45,14 +45,14 @@ const Leaders = () => {
    }
 
    const getCounterVisit = async () => {
-      const vc = await axios(`${url}countVisitLeaders`);
-      setVisitCounter(vc.data[0].visitLeaders);
+      const vc = await axios(`${url}countVisitPage`);
+      setVisitCounter(vc.data[0].visitPage);
 
       setCounterVisit();
    }
 
    const setCounterVisit = () => {
-      axios.post(`${url}countVisitLeaders`, {
+      axios.post(`${url}countVisitPage`, {
          page: 'Leaders'
       })
    }
