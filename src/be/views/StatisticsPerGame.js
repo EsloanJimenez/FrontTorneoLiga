@@ -16,7 +16,7 @@ import '../css/buttons.css'
 
 export const StatisticsPerGame = () => {
    const url = 'https://apitorneoliga.onrender.com/api/'
-   const urlOp = 'https://apitorneoliga.onrender.com/api/operationStatisti/';                                   
+   const urlOp = 'https://apitorneoliga.onrender.com/api/updateStatisticsPerPlayer/';                                   
 
    const [team1, setTeam1] = useState([]);
    const [team2, setTeam2] = useState([]);
