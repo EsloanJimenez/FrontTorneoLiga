@@ -107,18 +107,11 @@ export const StatisticsPerGame = () => {
    }
 
    const validate = () => {
-      console.log('esta entrando en validar')
-
-      console.log(nameGame);
-      console.log(nameTeam);
-      console.log(namePlayer);
-
       if(nameGame === 0) show_alerta('Seleccione el partido', 'warning')
       else if(nameTeam === 0) show_alerta('Seleccione el equipo', 'warning')
       else if(namePlayer === 0) show_alerta('Seleccione el jugador', 'warning')
       else {
          if(operation === 1) {
-            console.log('entro en el if para registrar al jugador');
             parameters = {game: nameGame, team: nameTeam, player: namePlayer};
 
             const requestInit = {
