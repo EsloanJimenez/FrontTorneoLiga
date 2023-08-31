@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useRef, useEffect } from "react"
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -8,8 +8,10 @@ import { faCirclePlus } from "@fortawesome/free-solid-svg-icons"
 
 import { HeaderControler } from "../components/HeaderControler"
 import { Board } from "../components/Board"
-import { closeClient, closeSelectGame } from '../../js/RegistrationForm'
+import { closeClient, closeClientPeriod } from '../../js/RegistrationForm'
 import { show_alerta } from '../../js/Function'
+
+import { opPtTeam1, opAsTeam1, opRebTeam1, opStoTeam1, opRobTeam1, opFauTeam1, opPtTeam2, opAsTeam2, opRebTeam2, opStoTeam2, opRobTeam2, opFauTeam2 } from "../../js/StadisticRegular"
 
 import '../css/register.css'
 import '../css/buttons.css'
@@ -27,6 +29,9 @@ export const StatisticsPerGame = () => {
 
    const [ptTeam1, setPtTeam1] = useState([]);
    const [ptTeam2, setPtTeam2] = useState([]);
+   const [board, setBoard] = useState([]);
+   const [periodo, setPeriodo] = useState([]);
+   const [room, setRoom] = useState([]);
 
    const [nameGame, setNameGame] = useState();
    const [nameTeam, setNameTeam] = useState(0);
@@ -35,6 +40,11 @@ export const StatisticsPerGame = () => {
    const [title, setTitle] = useState([]);
    const [btnSubmit, setBtnSubmit] = useState('');
    const [operation, setOperation] = useState(1);
+
+   const refFundPlayer = useRef();
+   const refFundPeriod = useRef();
+   const refFadeUpPlayer = useRef();
+   const refFadeUpPeriod = useRef();
 
    let parameters, parametersTeam, ptT1, ptT2;
 
@@ -68,6 +78,15 @@ export const StatisticsPerGame = () => {
    const getScore = async () => {
       const cal = await axios(`${url}filterCalendar`);
       setNameGameList(cal.data);
+
+      const bd = await axios(`${url}boardRegular/${cal.data[0].idCalendar}`);
+      setBoard(bd.data);
+
+      const per = await axios(`${url}periodRegular/${cal.data[0].idCalendar}`);
+      setPeriodo(per.data);
+
+      const ro = await axios(`${url}periodLastRecord`);
+      setRoom(ro.data);
       
       const viewScoreTeam1 = await axios(`${url}scoreTeam1/${cal.data[0].idCalendar}/${cal.data[0].team1}`);
       setPtTeam1(viewScoreTeam1.data);
@@ -87,21 +106,34 @@ export const StatisticsPerGame = () => {
       }).then(res => res.text())
    }
 
+   let idRoom = room.map(reg => reg.idStatisticPerRoom);
+   let pointRoomA = periodo.map(reg => reg.pointsTeamA);
+   let pointRoomB = periodo.map(reg => reg.pointsTeamB);
+   let faoutRoomA = periodo.map(reg => reg.faoutTeamA);
+   let faoutRoomB = periodo.map(reg => reg.faoutTeamB);
+
    const openModal = (op) => {
       setNameTeam(0);
       setNamePlayer(0);
       setOperation(op);
 
-      if(op === 1) {
-         setTimeout(() => {
-            const fund_new_client = document.querySelector(".container-form");
-            fund_new_client.classList.remove('hide_font');
+      if (op === 1) {
+         refFundPlayer.current.classList.remove('hide_font');
 
-            const fadeUp = document.querySelector('.card');
-            fadeUp.classList.add('fade-Up');
+         setTimeout(() => {
+            refFadeUpPlayer.current.classList.add('fade-Up');
          }, 100);
 
          setTitle('Registrar Jugador Al Partido');
+         setBtnSubmit('Registrar');
+      } else {
+         refFundPeriod.current.classList.remove('hide_font');
+
+         setTimeout(() => {
+            refFadeUpPeriod.current.classList.add('fade-Up');
+         }, 100);
+
+         setTitle('Registrar Periodo Al Partido');
          setBtnSubmit('Registrar');
       }
    }
@@ -136,6 +168,26 @@ export const StatisticsPerGame = () => {
       }
    }
 
+   const validatePeriod = () => {
+      if (nameGame === "0") show_alerta('Seleccione el partido', 'warning')
+      else {
+         const requestInitRoom = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ game: nameGame, pointsTeamA: 0, pointsTeamB: 0 })
+         }
+
+         fetch(`${url}roomPlayOff`, requestInitRoom)
+            .then(res => res.text())
+            .then(res => {
+               if (res === 'success') {
+                  refFundPeriod.current.classList.remove('fade-Up');
+                  refFundPeriod.current.classList.add('fadeUp');
+               }
+            })
+      }
+   }
+
    const deleteCustomer = (idPlayer, idGame) => {
       const MySwal = withReactContent(Swal);
 
@@ -161,438 +213,6 @@ export const StatisticsPerGame = () => {
       });
    }
 
-   const opPtTeam1 = async (index, player, op) => {
-      if(op) {
-         player.points +=1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
-
-         parameters = {idStatistic: player.idStatistic, points: player.points};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-            .then(res => {
-               getScore();
-            });
-      } else {
-         player.points -=1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
-         
-         parameters = {idStatistic: player.idStatistic, points: player.points};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-            .then(res => {
-               getScore();
-            })
-      }
-   }
-
-   const opAsTeam1 = (index, player, op) => {
-      if(op) {
-         player.assists +=1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
-   
-         parameters = {idStatistic: player.idStatistic, assists: player.assists};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-            .then(res => {
-               getScore();
-            })
-      } else {
-         player.assists -=1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
-         
-         parameters = {idStatistic: player.idStatistic, assists: player.assists};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-         .then(res => {
-            getScore();
-         })
-      }
-   }
-
-   const opRebTeam1 = (index, player, op) => {
-      if(op) {
-         player.rebounds +=1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
-   
-         parameters = {idStatistic: player.idStatistic, rebounds: player.rebounds};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-         .then(res => {
-            getScore();
-         })
-      } else {
-         player.rebounds -=1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
-         
-         parameters = {idStatistic: player.idStatistic, rebounds: player.rebounds};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-         .then(res => {
-            getScore();
-         })
-      }
-   }
-
-   const opStoTeam1 = (index, player, op) => {
-      if(op) {
-         player.stoppers +=1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
-   
-         parameters = {idStatistic: player.idStatistic, stoppers: player.stoppers};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-         .then(res => {
-            getScore();
-         })
-      } else {
-         player.stoppers -=1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
-         
-         parameters = {idStatistic: player.idStatistic, stoppers: player.stoppers};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-         .then(res => {
-            getScore();
-         })
-      }
-   }
-
-   const opRobTeam1 = (index, player, op) => {   
-      if(op) {
-         player.robberies +=1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
-   
-         parameters = {idStatistic: player.idStatistic, robberies: player.robberies};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-         .then(res => {
-            getScore();
-         })
-      } else {
-         player.robberies -=1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
-         
-         parameters = {idStatistic: player.idStatistic, robberies: player.robberies};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-         .then(res => {
-            getScore();
-         })
-      }
-   }
-
-   const opFauTeam1 = (index, player, op) => {   
-      if(op) {
-         player.faults +=1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
-   
-         parameters = {idStatistic: player.idStatistic, faults: player.faults};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-         .then(res => {
-            getScore();
-         })
-      } else {
-         player.faults -=1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
-         
-         parameters = {idStatistic: player.idStatistic, faults: player.faults};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-         .then(res => {
-            getScore();
-         })
-      }
-   }
-
-   const opPtTeam2 = (index, player, op) => {
-      if(op) {
-         player.points +=1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
-   
-         parameters = {idStatistic: player.idStatistic, points: player.points};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-         .then(res => {
-            getScore();
-         })
-      } else {
-         player.points -=1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
-         
-         parameters = {idStatistic: player.idStatistic, points: player.points};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-         .then(res => {
-            getScore();
-         })
-      }
-   }
-
-   const opAsTeam2 = (index, player, op) => {
-      if(op) {
-         player.assists +=1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
-   
-         parameters = {idStatistic: player.idStatistic, assists: player.assists};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-         .then(res => {
-            getScore();
-         })
-      } else {
-         player.assists -=1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
-         
-         parameters = {idStatistic: player.idStatistic, assists: player.assists};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-         .then(res => {
-            getScore();
-         })
-      }
-   }
-
-   const opRebTeam2 = (index, player, op) => {
-      if(op) {
-         player.rebounds +=1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
-   
-         parameters = {idStatistic: player.idStatistic, rebounds: player.rebounds};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-         .then(res => {
-            getScore();
-         })
-      } else {
-         player.rebounds -=1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
-         
-         parameters = {idStatistic: player.idStatistic, rebounds: player.rebounds};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-         .then(res => {
-            getScore();
-         })
-      }
-   }
-
-   const opStoTeam2 = (index, player, op) => {
-      if(op) {
-         player.stoppers +=1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
-   
-         parameters = {idStatistic: player.idStatistic, stoppers: player.stoppers};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-         .then(res => {
-            getScore();
-         })
-      } else {
-         player.stoppers -=1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
-         
-         parameters = {idStatistic: player.idStatistic, stoppers: player.stoppers};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-         .then(res => {
-            getScore();
-         })
-      }
-   }
-
-   const opRobTeam2 = (index, player, op) => {   
-      if(op) {
-         player.robberies +=1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
-   
-         parameters = {idStatistic: player.idStatistic, robberies: player.robberies};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-         .then(res => {
-            getScore();
-         })
-      } else {
-         player.robberies -=1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
-         
-         parameters = {idStatistic: player.idStatistic, robberies: player.robberies};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-         .then(res => {
-            getScore();
-         })
-      }
-   }
-
-   const opFauTeam2 = (index, player, op) => {   
-      if(op) {
-         player.faults +=1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
-   
-         parameters = {idStatistic: player.idStatistic, faults: player.faults};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-         .then(res => {
-            getScore();
-         })
-      } else {
-         player.faults -=1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
-         
-         parameters = {idStatistic: player.idStatistic, faults: player.faults};
-               
-         fetch(urlOp + player.idStatistic, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(parameters)
-         }).then(res => res.text())
-         .then(res => {
-            getScore();
-         })
-      }
-   }
-
    return(
       <>
       <div>
@@ -601,11 +221,15 @@ export const StatisticsPerGame = () => {
          <Board 
             ptTeam1={ptTeam1}
             ptTeam2={ptTeam2}
+            board={board}
+            periodo={periodo}
+            room={room}
          />
 
          <div className="container-table">
             <div className='header'>
                <button name="newClient" className="btn-light btn-register" onClick={() => openModal(1)}><span><FontAwesomeIcon icon={faCirclePlus} /></span></button>
+               <button name="newClient" className="btn-light btn-light-secondary" onClick={() => openModal(2)}><span><FontAwesomeIcon icon={faCirclePlus} /></span></button>
             </div>
 
             <h1>EQUIPO A ({ptTeam1.map(reg => reg.nameTeam)})</h1>
@@ -783,6 +407,31 @@ export const StatisticsPerGame = () => {
                   </div>
                </div>
             </div>
+
+            {/* REGISTRAR PERIODO AL JUEGO  */}
+            <div className="container-form hide hide_font" ref={refFundPeriod}>
+                  <div className="card fadeUp" ref={refFadeUpPeriod}>
+                     <div className="card-header">
+                        <span className='title'>{title}</span>
+                        <button className='closeClient' onClick={closeClientPeriod}>X</button>
+                     </div>
+
+                     <div className="card-body">
+                        <div className="mb-3">
+                           <label htmlFor="nameGame" className="form-label">Seleccione Partido</label>
+                           <select className="form-control" id="nameGame" name="nameGame" onChange={(e) => setNameGame(e.target.value)}>
+                              <option value="0">Seleccione El Partido</option>
+                              {
+                                 nameGameList.map((gameList) =>
+                                    <option key={gameList.idCalendarPlayOff} value={gameList.idCalendarPlayOff}>{gameList.nameGame}</option>
+                                 )
+                              }
+                           </select>
+                        </div>
+                        <button onClick={() => validatePeriod()} className="btn btn-primary" >{btnSubmit}</button>
+                     </div>
+                  </div>
+               </div>
          </div>
       </div>
       </>
