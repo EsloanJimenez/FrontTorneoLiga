@@ -107,7 +107,7 @@ export const StatisticsPerGame = () => {
    }
 
    const validate = () => {
-      alert('esta entrando')
+      console.log('esta entrando en validar')
 
       console.log(nameGame);
       console.log(nameTeam);
@@ -118,6 +118,7 @@ export const StatisticsPerGame = () => {
       else if(namePlayer === 0) show_alerta('Seleccione el jugador', 'warning')
       else {
          if(operation === 1) {
+            console.log('entro en el if para registrar al jugador');
             parameters = {game: nameGame, team: nameTeam, player: namePlayer};
 
             const requestInit = {
@@ -129,9 +130,8 @@ export const StatisticsPerGame = () => {
             fetch(`${url}statisticsPerPlayer`, requestInit)
             .then(res => res.text())
             .then(res => {
-               let msj = 'Jugador Registrado En El Partido';
             
-               show_alerta(msj, 'success');
+               show_alerta('Jugador Registrado En El Partido', 'success');
    
                if(res === 'success') {
                   closeClient();
