@@ -107,10 +107,12 @@ export const StatisticsPerGame = () => {
    }
 
    const validate = () => {
+      alert('esta entrando')
+      
       console.log(nameGame);
       console.log(nameTeam);
       console.log(namePlayer);
-      
+
       if(nameGame === "0") show_alerta('Seleccione el partido', 'warning')
       else if(nameTeam === 0) show_alerta('Seleccione el equipo', 'warning')
       else if(namePlayer === 0) show_alerta('Seleccione el jugador', 'warning')
