@@ -794,8 +794,8 @@ export const StatisticsPerGame = () => {
                </div>
 
                {/* REGISTRAR JUGADOR AL JUEGO  */}
-               <div className="container-form hide hide_font">
-                  <div className="card fadeUp">
+               <div className="container-form hide hide_font" ref={refFundPlayer}>
+                  <div className="card fadeUp" ref={refFadeUpPlayer}>
                      <div className="card-header">
                         <span className='title'>{title}</span>
                         <button className='closeClient' onClick={closeClient}>X</button>
