@@ -11,7 +11,7 @@ import { Board } from "../components/Board"
 import { closeClient, closeClientPeriod } from '../../js/RegistrationForm'
 import { show_alerta } from '../../js/Function'
 
-// import { opPtTeam1, opAsTeam1, opRebTeam1, opStoTeam1, opRobTeam1, opFauTeam1, opPtTeam2, opAsTeam2, opRebTeam2, opStoTeam2, opRobTeam2, opFauTeam2 } from "../../js/StadisticRegular"
+import { opPtTeam1, opAsTeam1, opRebTeam1, opStoTeam1, opRobTeam1, opFauTeam1, opPtTeam2, opAsTeam2, opRebTeam2, opStoTeam2, opRobTeam2, opFauTeam2 } from "../../js/StadisticRegular"
 
 import '../css/register.css'
 import '../css/buttons.css'
@@ -144,6 +144,7 @@ export const StatisticsPerGame = () => {
       else if (namePlayer === 0) show_alerta('Seleccione el jugador', 'warning')
       else {
          if (operation === 1) {
+            console.log('entro al if');
             parameters = { game: nameGame, team: nameTeam, player: namePlayer };
 
             const requestInit = {
@@ -212,7 +213,7 @@ export const StatisticsPerGame = () => {
          }
       });
    }
-
+/*
    const opPtTeam1 = async (index, player, op) => {
       if (op) {
          player.points += 1;
@@ -644,7 +645,7 @@ export const StatisticsPerGame = () => {
             })
       }
    }
-
+*/
    return (
       <>
          <div>
@@ -690,34 +691,34 @@ export const StatisticsPerGame = () => {
                                  <td>{reg.fullName}</td>
                                  <td>{reg.jacket}</td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opPtTeam1(index, reg, false)}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opPtTeam1(reg, false, pointRoomA, urlOp, getScore(), url, idRoom)}>-</button>
                                     {reg.points}
-                                    <button type="button" className="btn btn-info" onClick={() => opPtTeam1(index, reg, true)}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opPtTeam1(reg, true, pointRoomA, urlOp, getScore(), url, idRoom)}>+</button>
                                  </td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opAsTeam1(index, reg, false)}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opAsTeam1(reg, false, urlOp, getScore())}>-</button>
                                     {reg.assists}
-                                    <button type="button" className="btn btn-info" onClick={() => opAsTeam1(index, reg, true)}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opAsTeam1(reg, true, urlOp, getScore())}>+</button>
                                  </td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opRebTeam1(index, reg, false)}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opRebTeam1(reg, false, urlOp, getScore())}>-</button>
                                     {reg.rebounds}
-                                    <button type="button" className="btn btn-info" onClick={() => opRebTeam1(index, reg, true)}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opRebTeam1(reg, true, urlOp, getScore())}>+</button>
                                  </td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opStoTeam1(index, reg, false)}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opStoTeam1(reg, false, urlOp, getScore())}>-</button>
                                     {reg.stoppers}
-                                    <button type="button" className="btn btn-info" onClick={() => opStoTeam1(index, reg, true)}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opStoTeam1(reg, true, urlOp, getScore())}>+</button>
                                  </td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opRobTeam1(index, reg, false)}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opRobTeam1(reg, false, urlOp, getScore())}>-</button>
                                     {reg.robberies}
-                                    <button type="button" className="btn btn-info" onClick={() => opRobTeam1(index, reg, true)}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opRobTeam1(reg, true, urlOp, getScore())}>+</button>
                                  </td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opFauTeam1(index, reg, false)}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opFauTeam1(reg, false, faoutRoomA, urlOp, getScore(), url, idRoom)}>-</button>
                                     {reg.faults}
-                                    <button type="button" className="btn btn-info" onClick={() => opFauTeam1(index, reg, true)}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opFauTeam1(reg, true, faoutRoomA, urlOp, getScore(), url, idRoom)}>+</button>
                                  </td>
                                  <td>
                                     <button onClick={() => deleteCustomer(reg.idStatistic, reg.game)} className="btn btn-delete">Eliminar</button>
@@ -754,34 +755,34 @@ export const StatisticsPerGame = () => {
                                  <td>{reg.fullName}</td>
                                  <td>{reg.jacket}</td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opPtTeam2(index, reg, false)}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opPtTeam2(reg, false, pointRoomB, urlOp, getScore(), url, idRoom)}>-</button>
                                     {reg.points}
-                                    <button type="button" className="btn btn-info" onClick={() => opPtTeam2(index, reg, true)}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opPtTeam2(reg, true, pointRoomB, urlOp, getScore(), url, idRoom)}>+</button>
                                  </td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opAsTeam2(index, reg, false)}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opAsTeam2(reg, false, urlOp, getScore())}>-</button>
                                     {reg.assists}
-                                    <button type="button" className="btn btn-info" onClick={() => opAsTeam2(index, reg, true)}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opAsTeam2(reg, true, urlOp, getScore())}>+</button>
                                  </td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opRebTeam2(index, reg, false)}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opRebTeam2(reg, false, urlOp, getScore())}>-</button>
                                     {reg.rebounds}
-                                    <button type="button" className="btn btn-info" onClick={() => opRebTeam2(index, reg, true)}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opRebTeam2(reg, true, urlOp, getScore())}>+</button>
                                  </td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opStoTeam2(index, reg, false)}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opStoTeam2(reg, false, urlOp, getScore())}>-</button>
                                     {reg.stoppers}
-                                    <button type="button" className="btn btn-info" onClick={() => opStoTeam2(index, reg, true)}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opStoTeam2(reg, true, urlOp, getScore())}>+</button>
                                  </td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opRobTeam2(index, reg, false)}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opRobTeam2(reg, false, urlOp, getScore())}>-</button>
                                     {reg.robberies}
-                                    <button type="button" className="btn btn-info" onClick={() => opRobTeam2(index, reg, true)}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opRobTeam2(reg, true, urlOp, getScore())}>+</button>
                                  </td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opFauTeam2(index, reg, false)}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opFauTeam2(reg, false, faoutRoomB, urlOp, getScore(), url, idRoom)}>-</button>
                                     {reg.faults}
-                                    <button type="button" className="btn btn-info" onClick={() => opFauTeam2(index, reg, true)}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opFauTeam2(reg, true, faoutRoomB, urlOp, getScore(), url, idRoom)}>+</button>
                                  </td>
                                  <td>
                                     <button onClick={() => deleteCustomer(reg.idStatistic)} className="btn btn-delete">Eliminar</button>
