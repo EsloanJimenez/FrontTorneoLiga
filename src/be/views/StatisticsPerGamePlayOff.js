@@ -11,7 +11,7 @@ import { Board } from "../components/Board"
 import { closeClient, closeClientPeriod, closeSelectGame } from '../../js/RegistrationForm'
 import { show_alerta } from '../../js/Function'
 
-import { opPtTeam1, opAsTeam1, opRebTeam1, opStoTeam1, opRobTeam1, opFauTeam1, opPtTeam2, opAsTeam2, opRebTeam2, opStoTeam2, opRobTeam2, opFauTeam2 } from "../../js/StadisticPlayOff"
+// import { opPtTeam1, opAsTeam1, opRebTeam1, opStoTeam1, opRobTeam1, opFauTeam1, opPtTeam2, opAsTeam2, opRebTeam2, opStoTeam2, opRobTeam2, opFauTeam2 } from "../../js/StadisticPlayOff"
 
 import '../css/register.css'
 import '../css/buttons.css';
@@ -212,6 +212,438 @@ export const StatisticsPerGamePlayOff = () => {
             show_alerta('El Juego NO fue eliminado', 'info');
          }
       });
+   }
+
+   const opPtTeam1 = async (index, player, op) => {
+      if(op) {
+         player.points +=1;
+         const newArr = [...team1];
+         newArr[index] = player;
+         setTeam1(newArr);
+   
+         parameters = {idStatistic: player.idStatistic, points: player.points};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+            .then(res => {
+               // getScore();
+            });
+      } else {
+         player.points -=1;
+         const newArr = [...team1];
+         newArr[index] = player;
+         setTeam1(newArr);
+         
+         parameters = {idStatistic: player.idStatistic, points: player.points};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+            .then(res => {
+               // getScore();
+            })
+      }
+   }
+   
+    const opAsTeam1 = (index, player, op) => {
+      if(op) {
+         player.assists +=1;
+         const newArr = [...team1];
+         newArr[index] = player;
+         setTeam1(newArr);
+   
+         parameters = {idStatistic: player.idStatistic, assists: player.assists};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+            .then(res => {
+               // getScore();
+            })
+      } else {
+         player.assists -=1;
+         const newArr = [...team1];
+         newArr[index] = player;
+         setTeam1(newArr);
+         
+         parameters = {idStatistic: player.idStatistic, assists: player.assists};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+         .then(res => {
+            // getScore();
+         })
+      }
+   }
+   
+    const opRebTeam1 = (index, player, op) => {
+      if(op) {
+         player.rebounds +=1;
+         const newArr = [...team1];
+         newArr[index] = player;
+         setTeam1(newArr);
+   
+         parameters = {idStatistic: player.idStatistic, rebounds: player.rebounds};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+         .then(res => {
+            // getScore();
+         })
+      } else {
+         player.rebounds -=1;
+         const newArr = [...team1];
+         newArr[index] = player;
+         setTeam1(newArr);
+         
+         parameters = {idStatistic: player.idStatistic, rebounds: player.rebounds};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+         .then(res => {
+            // getScore();
+         })
+      }
+   }
+   
+    const opStoTeam1 = (index, player, op) => {
+      if(op) {
+         player.stoppers +=1;
+         const newArr = [...team1];
+         newArr[index] = player;
+         setTeam1(newArr);
+   
+         parameters = {idStatistic: player.idStatistic, stoppers: player.stoppers};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+         .then(res => {
+            // getScore();
+         })
+      } else {
+         player.stoppers -=1;
+         const newArr = [...team1];
+         newArr[index] = player;
+         setTeam1(newArr);
+         
+         parameters = {idStatistic: player.idStatistic, stoppers: player.stoppers};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+         .then(res => {
+            // getScore();
+         })
+      }
+   }
+   
+    const opRobTeam1 = (index, player, op) => {   
+      if(op) {
+         player.robberies +=1;
+         const newArr = [...team1];
+         newArr[index] = player;
+         setTeam1(newArr);
+   
+         parameters = {idStatistic: player.idStatistic, robberies: player.robberies};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+         .then(res => {
+            // getScore();
+         })
+      } else {
+         player.robberies -=1;
+         const newArr = [...team1];
+         newArr[index] = player;
+         setTeam1(newArr);
+         
+         parameters = {idStatistic: player.idStatistic, robberies: player.robberies};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+         .then(res => {
+            // getScore();
+         })
+      }
+   }
+   
+    const opFauTeam1 = (index, player, op) => {   
+      if(op) {
+         player.faults +=1;
+         const newArr = [...team1];
+         newArr[index] = player;
+         setTeam1(newArr);
+   
+         parameters = {idStatistic: player.idStatistic, faults: player.faults};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+         .then(res => {
+            // getScore();
+         })
+      } else {
+         player.faults -=1;
+         const newArr = [...team1];
+         newArr[index] = player;
+         setTeam1(newArr);
+         
+         parameters = {idStatistic: player.idStatistic, faults: player.faults};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+         .then(res => {
+            // getScore();
+         })
+      }
+   }
+   
+    const opPtTeam2 = (index, player, op) => {
+      if(op) {
+         player.points +=1;
+         const newArr = [...team2];
+         newArr[index] = player;
+         setTeam2(newArr);
+   
+         parameters = {idStatistic: player.idStatistic, points: player.points};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+         .then(res => {
+            // getScore();
+         })
+      } else {
+         player.points -=1;
+         const newArr = [...team2];
+         newArr[index] = player;
+         setTeam2(newArr);
+         
+         parameters = {idStatistic: player.idStatistic, points: player.points};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+         .then(res => {
+            // getScore();
+         })
+      }
+   }
+   
+    const opAsTeam2 = (index, player, op) => {
+      if(op) {
+         player.assists +=1;
+         const newArr = [...team2];
+         newArr[index] = player;
+         setTeam2(newArr);
+   
+         parameters = {idStatistic: player.idStatistic, assists: player.assists};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+         .then(res => {
+            // getScore();
+         })
+      } else {
+         player.assists -=1;
+         const newArr = [...team2];
+         newArr[index] = player;
+         setTeam2(newArr);
+         
+         parameters = {idStatistic: player.idStatistic, assists: player.assists};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+         .then(res => {
+            // getScore();
+         })
+      }
+   }
+   
+    const opRebTeam2 = (index, player, op) => {
+      if(op) {
+         player.rebounds +=1;
+         const newArr = [...team2];
+         newArr[index] = player;
+         setTeam2(newArr);
+   
+         parameters = {idStatistic: player.idStatistic, rebounds: player.rebounds};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+         .then(res => {
+            // getScore();
+         })
+      } else {
+         player.rebounds -=1;
+         const newArr = [...team2];
+         newArr[index] = player;
+         setTeam2(newArr);
+         
+         parameters = {idStatistic: player.idStatistic, rebounds: player.rebounds};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+         .then(res => {
+            // getScore();
+         })
+      }
+   }
+   
+    const opStoTeam2 = (index, player, op) => {
+      if(op) {
+         player.stoppers +=1;
+         const newArr = [...team2];
+         newArr[index] = player;
+         setTeam2(newArr);
+   
+         parameters = {idStatistic: player.idStatistic, stoppers: player.stoppers};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+         .then(res => {
+            // getScore();
+         })
+      } else {
+         player.stoppers -=1;
+         const newArr = [...team2];
+         newArr[index] = player;
+         setTeam2(newArr);
+         
+         parameters = {idStatistic: player.idStatistic, stoppers: player.stoppers};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+         .then(res => {
+            // getScore();
+         })
+      }
+   }
+   
+    const opRobTeam2 = (index, player, op) => {   
+      if(op) {
+         player.robberies +=1;
+         const newArr = [...team2];
+         newArr[index] = player;
+         setTeam2(newArr);
+   
+         parameters = {idStatistic: player.idStatistic, robberies: player.robberies};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+         .then(res => {
+            // getScore();
+         })
+      } else {
+         player.robberies -=1;
+         const newArr = [...team2];
+         newArr[index] = player;
+         setTeam2(newArr);
+         
+         parameters = {idStatistic: player.idStatistic, robberies: player.robberies};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+         .then(res => {
+            // getScore();
+         })
+      }
+   }
+   
+    const opFauTeam2 = (index, player, op) => {   
+      if(op) {
+         player.faults +=1;
+         const newArr = [...team2];
+         newArr[index] = player;
+         setTeam2(newArr);
+   
+         parameters = {idStatistic: player.idStatistic, faults: player.faults};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+         .then(res => {
+            // getScore();
+         })
+      } else {
+         player.faults -=1;
+         const newArr = [...team2];
+         newArr[index] = player;
+         setTeam2(newArr);
+         
+         parameters = {idStatistic: player.idStatistic, faults: player.faults};
+               
+         fetch(urlOp + player.idStatistic, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(parameters)
+         }).then(res => res.text())
+         .then(res => {
+            // getScore();
+         })
+      }
    }
 
    return (
