@@ -203,19 +203,19 @@ export const Admin = () => {
                   </div>
                   <div className="card-body">
                         <div className="mb-3">
-                           <label for="name" className="form-label">Nombre Completo</label>
+                           <label htmlFor="name" className="form-label">Nombre Completo</label>
                            <input type="text" className="form-control" id="name" name="name" value={fullName} onChange={(e) => setFullName(e.target.value)} />
                         </div>
                         <div className="mb-3">
-                           <label for="userName" className="form-label">Nombre De Usuario</label>
+                           <label htmlFor="userName" className="form-label">Nombre De Usuario</label>
                            <input type="text" className="form-control" id="userName" name="userName" value={userName} onChange={(e) => setUserName(e.target.value)} />
                         </div>
                         <div className="mb-3">
-                           <label for="password" className="form-label">Contraseña</label>
+                           <label htmlFor="password" className="form-label">Contraseña</label>
                            <input type="password" className="form-control" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                         </div>
                         <div className="mb-3">
-                           <label for="verifyPassword" className="form-label">Repetir Contraseña</label>
+                           <label htmlFor="verifyPassword" className="form-label">Repetir Contraseña</label>
                            <input type="password" className="form-control" id="verifyPassword" name="verifyPassword" />
                         </div>
                         <button onClick={() => validate()} className="btn btn-primary" >{btnSubmit}</button>

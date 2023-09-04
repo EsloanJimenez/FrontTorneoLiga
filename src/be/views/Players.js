@@ -213,15 +213,15 @@ export const Players = () => {
                   <div className="card-body">
                      <form action="https://apitorneoliga.onrender.com/api/player" method="post" enctype="multipart/form-data">
                         <div className="mb-3">
-                              <label for="photo" className="form-label">Foto</label>
+                              <label htmlFor="photo" className="form-label">Foto</label>
                               <input type="file" className="form-control" id="photo" name="photo" onChange={(e) => setPhoto(e.target.files[0].name)} />
                            </div>
                         <div className="mb-3">
-                           <label for="name" className="form-label">Nombre Completo</label>
-                           <input type="text" className="form-control" id="name" name="name" value={fullName} onChange={(e) => setFullName(e.target.value)} tabindex="1"/>
+                           <label htmlFor="name" className="form-label">Nombre Completo</label>
+                           <input type="text" className="form-control" id="name" name="name" value={fullName} onChange={(e) => setFullName(e.target.value)}/>
                         </div>
                         <div className="mb-3">
-                           <label for="team" className="form-label">Equipo</label>
+                           <label htmlFor="team" className="form-label">Equipo</label>
                            <select className="form-control" id="team" name="team"  onChange={(e) => setTeam(e.target.value)}>
                               <option value="">Seleccione Un Equipo</option>
                               {
@@ -232,10 +232,10 @@ export const Players = () => {
                            </select>
                         </div>
                         <div className="mb-3">
-                           <label for="jacket" class="form-label">Chaqueta</label>
-                           <input type="number" class="form-control" id="jacket" name="jacket" value={jacket} onChange={(e) => setJacket(e.target.value)} tabindex="2" />
+                           <label htmlFor="jacket" className="form-label">Chaqueta</label>
+                           <input type="number" className="form-control" id="jacket" name="jacket" value={jacket} onChange={(e) => setJacket(e.target.value)} />
                         </div>
-                        <button onClick={() => validate()} className="btn btn-primary" tabindex="3">{btnSubmit}</button>
+                        <button onClick={() => validate()} className="btn btn-primary">{btnSubmit}</button>
                      </form>
                   </div>
                </div>

@@ -281,15 +281,15 @@ export const Teams = () => {
                   <div className="card-body">
                      <form action="https://apitorneoliga.onrender.com/api/team" method="post" enctype="multipart/form-data">
                         <div className="mb-3">
-                           <label for="name" className="form-label">Nombre</label>
+                           <label htmlFor="name" className="form-label">Nombre</label>
                            <input type="text" className="form-control" id="name" name="name" value={name} onChange={(e) => setName(e.target.value)} />
                         </div>
                         <div className="mb-3">
-                           <label for="photo" className="form-label">Foto</label>
+                           <label htmlFor="photo" className="form-label">Foto</label>
                            <input type="file" className="form-control" id="photo" name="photo" onChange={(e) => setPhoto(e.target.files[0].name)} />
                         </div>
                         <div className="mb-3">
-                           <label for="logo" className="form-label">Logo</label>
+                           <label htmlFor="logo" className="form-label">Logo</label>
                            <input type="file" className="form-control" id="logo" name="logo" onChange={(e) => setLogo(e.target.files[0].name)} />
                         </div>
                         <button onClick={() => validate()} className="btn btn-primary" >{btnSubmit}</button>

@@ -795,7 +795,7 @@ export const StatisticsPerGame = () => {
                      <tbody id='listaCiudades'>
                         {
                            team2.map((reg, index) => (
-                              <tr key={reg.idStatistic}>
+                              <tr key={index}>
                                  <td>{<img className="imgStatist" src={`https://apitorneoliga.onrender.com/${reg.photo}`} alt="imagen rota" />}</td>
                                  <td>{reg.fullName}</td>
                                  <td>{reg.jacket}</td>
@@ -849,7 +849,7 @@ export const StatisticsPerGame = () => {
 
                      <div className="card-body">
                         <div className="mb-3">
-                           <label for="nameGame" className="form-label">Seleccione Partido</label>
+                           <label htmlFor="nameGame" className="form-label">Seleccione Partido</label>
                            <select className="form-control" id="nameGame" name="nameGame" onChange={(e) => setNameGame(e.target.value)}>
                               <option value="0">Seleccione El Partido</option>
                               {
@@ -860,7 +860,7 @@ export const StatisticsPerGame = () => {
                            </select>
                         </div>
                         <div className="mb-3">
-                           <label for="nameTeam" className="form-label">Equipo</label>
+                           <label htmlFor="nameTeam" className="form-label">Equipo</label>
                            <select className="form-control" id="nameTeam" name="nameTeam" onChange={(e) => setNameTeam(e.target.value)}>
                               <option value="0">Seleccione El Equipo</option>
                               {
@@ -871,7 +871,7 @@ export const StatisticsPerGame = () => {
                            </select>
                         </div>
                         <div className="mb-3">
-                           <label for="namePlayer" className="form-label">Jugador</label>
+                           <label htmlFor="namePlayer" className="form-label">Jugador</label>
                            <select className="form-control" id="namePlayer" name="namePlayer" onChange={(e) => setNamePlayer(e.target.value)}>
                               <option value="0">Seleccione El Jugador</option>
                               {
