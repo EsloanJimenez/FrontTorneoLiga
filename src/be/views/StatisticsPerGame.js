@@ -171,7 +171,6 @@ export const StatisticsPerGame = () => {
    const validatePeriod = () => {
       if (nameGame === "0") show_alerta('Seleccione el partido', 'warning')
       else {
-         console.log('entro en el else, pero porque no se envia?');
          const requestInitRoom = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
