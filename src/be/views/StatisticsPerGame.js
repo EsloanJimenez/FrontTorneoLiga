@@ -11,7 +11,7 @@ import { Board } from "../components/Board"
 import { closeClient, closeClientPeriod } from '../../js/RegistrationForm'
 import { show_alerta } from '../../js/Function'
 
-import { opPtTeam1, opAsTeam1, opRebTeam1, opStoTeam1, opRobTeam1, opFauTeam1, opPtTeam2, opAsTeam2, opRebTeam2, opStoTeam2, opRobTeam2, opFauTeam2 } from "../../js/StadisticRegular"
+// import { opPtTeam1, opAsTeam1, opRebTeam1, opStoTeam1, opRobTeam1, opFauTeam1, opPtTeam2, opAsTeam2, opRebTeam2, opStoTeam2, opRobTeam2, opFauTeam2 } from "../../js/StadisticRegular"
 
 import '../css/register.css'
 import '../css/buttons.css'
@@ -144,7 +144,6 @@ export const StatisticsPerGame = () => {
       else if (namePlayer === 0) show_alerta('Seleccione el jugador', 'warning')
       else {
          if (operation === 1) {
-            console.log('entro al if');
             parameters = { game: nameGame, team: nameTeam, player: namePlayer };
 
             const requestInit = {
@@ -213,13 +212,13 @@ export const StatisticsPerGame = () => {
          }
       });
    }
-/*
-   const opPtTeam1 = async (index, player, op) => {
+
+   const opPtTeam1 = async (player, op) => {
       if (op) {
          player.points += 1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
+         // const newArr = [...team1];
+         // newArr[index] = player;
+         // setTeam1(newArr);
 
          parameters = { idStatistic: player.idStatistic, points: player.points };
 
@@ -229,13 +228,27 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
             });
+
+         pointRoomA[pointRoomA.length - 1] += 1;
+
+         fetch(`${url}roomUpdate/${idRoom[0]}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+               idStatisticPerRoom: idRoom[0],
+               pointsTeamA: pointRoomA[pointRoomA.length - 1]
+            })
+         }).then(res => res.text())
+            .then(res => {
+               getScore();
+            })
       } else {
          player.points -= 1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
+         // const newArr = [...team1];
+         // newArr[index] = player;
+         // setTeam1(newArr);
 
          parameters = { idStatistic: player.idStatistic, points: player.points };
 
@@ -245,17 +258,28 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
+            })
+
+         pointRoomA[pointRoomA.length - 1] -= 1;
+
+         fetch(`${url}roomUpdate/${idRoom[0]}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+               idStatisticPerRoom: idRoom[0],
+               pointsTeamA: pointRoomA[pointRoomA.length - 1]
+            })
+         }).then(res => res.text())
+            .then(res => {
+               getScore();
             })
       }
    }
 
-   const opAsTeam1 = (index, player, op) => {
+   const opAsTeam1 = (player, op) => {
       if (op) {
          player.assists += 1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
 
          parameters = { idStatistic: player.idStatistic, assists: player.assists };
 
@@ -265,13 +289,10 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
             })
       } else {
          player.assists -= 1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
 
          parameters = { idStatistic: player.idStatistic, assists: player.assists };
 
@@ -281,17 +302,14 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
             })
       }
    }
 
-   const opRebTeam1 = (index, player, op) => {
+   const opRebTeam1 = (player, op) => {
       if (op) {
          player.rebounds += 1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
 
          parameters = { idStatistic: player.idStatistic, rebounds: player.rebounds };
 
@@ -301,13 +319,10 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
             })
       } else {
          player.rebounds -= 1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
 
          parameters = { idStatistic: player.idStatistic, rebounds: player.rebounds };
 
@@ -317,17 +332,14 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
             })
       }
    }
 
-   const opStoTeam1 = (index, player, op) => {
+   const opStoTeam1 = (player, op) => {
       if (op) {
          player.stoppers += 1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
 
          parameters = { idStatistic: player.idStatistic, stoppers: player.stoppers };
 
@@ -337,13 +349,10 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
             })
       } else {
          player.stoppers -= 1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
 
          parameters = { idStatistic: player.idStatistic, stoppers: player.stoppers };
 
@@ -353,17 +362,14 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
             })
       }
    }
 
-   const opRobTeam1 = (index, player, op) => {
+   const opRobTeam1 = (player, op) => {
       if (op) {
          player.robberies += 1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
 
          parameters = { idStatistic: player.idStatistic, robberies: player.robberies };
 
@@ -373,13 +379,10 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
             })
       } else {
          player.robberies -= 1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
 
          parameters = { idStatistic: player.idStatistic, robberies: player.robberies };
 
@@ -389,17 +392,14 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
             })
       }
    }
 
-   const opFauTeam1 = (index, player, op) => {
+   const opFauTeam1 = (player, op) => {
       if (op) {
          player.faults += 1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
 
          parameters = { idStatistic: player.idStatistic, faults: player.faults };
 
@@ -409,13 +409,24 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
+            })
+
+         faoutRoomA[faoutRoomA.length - 1] += 1;
+
+         fetch(`${url}roomUpdate/${idRoom[0]}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+               idStatisticPerRoom: idRoom[0],
+               faoutTeamA: faoutRoomA[faoutRoomA.length - 1]
+            })
+         }).then(res => res.text())
+            .then(res => {
+               getScore();
             })
       } else {
          player.faults -= 1;
-         const newArr = [...team1];
-         newArr[index] = player;
-         setTeam1(newArr);
 
          parameters = { idStatistic: player.idStatistic, faults: player.faults };
 
@@ -425,17 +436,28 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
+            })
+
+         faoutRoomA[faoutRoomA.length - 1] -= 1;
+
+         fetch(`${url}roomUpdate/${idRoom[0]}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+               idStatisticPerRoom: idRoom[0],
+               faoutTeamA: faoutRoomA[faoutRoomA.length - 1]
+            })
+         }).then(res => res.text())
+            .then(res => {
+               getScore();
             })
       }
    }
 
-   const opPtTeam2 = (index, player, op) => {
+   const opPtTeam2 = (player, op) => {
       if (op) {
          player.points += 1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
 
          parameters = { idStatistic: player.idStatistic, points: player.points };
 
@@ -445,13 +467,24 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
+            })
+
+            pointRoomB[pointRoomB.length-1] += 1;
+
+         fetch(`${url}roomUpdate/${idRoom}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+               idStatisticPerRoom: idRoom,
+               pointsTeamB: pointRoomB[pointRoomB.length-1]
+            })
+         }).then(res => res.text())
+            .then(res => {
+               getScore();
             })
       } else {
          player.points -= 1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
 
          parameters = { idStatistic: player.idStatistic, points: player.points };
 
@@ -461,17 +494,28 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
+            })
+
+            pointRoomB[pointRoomB.length-1] -= 1;
+
+         fetch(`${url}roomUpdate/${idRoom}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+               idStatisticPerRoom: idRoom,
+               pointsTeamB: pointRoomB[pointRoomB.length-1]
+            })
+         }).then(res => res.text())
+            .then(res => {
+               getScore();
             })
       }
    }
 
-   const opAsTeam2 = (index, player, op) => {
+   const opAsTeam2 = (player, op) => {
       if (op) {
          player.assists += 1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
 
          parameters = { idStatistic: player.idStatistic, assists: player.assists };
 
@@ -481,13 +525,10 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
             })
       } else {
          player.assists -= 1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
 
          parameters = { idStatistic: player.idStatistic, assists: player.assists };
 
@@ -497,17 +538,14 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
             })
       }
    }
 
-   const opRebTeam2 = (index, player, op) => {
+   const opRebTeam2 = (player, op) => {
       if (op) {
          player.rebounds += 1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
 
          parameters = { idStatistic: player.idStatistic, rebounds: player.rebounds };
 
@@ -517,13 +555,10 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
             })
       } else {
          player.rebounds -= 1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
 
          parameters = { idStatistic: player.idStatistic, rebounds: player.rebounds };
 
@@ -533,17 +568,14 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
             })
       }
    }
 
-   const opStoTeam2 = (index, player, op) => {
+   const opStoTeam2 = (player, op) => {
       if (op) {
          player.stoppers += 1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
 
          parameters = { idStatistic: player.idStatistic, stoppers: player.stoppers };
 
@@ -553,13 +585,10 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
             })
       } else {
          player.stoppers -= 1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
 
          parameters = { idStatistic: player.idStatistic, stoppers: player.stoppers };
 
@@ -569,17 +598,14 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
             })
       }
    }
 
-   const opRobTeam2 = (index, player, op) => {
+   const opRobTeam2 = (player, op) => {
       if (op) {
          player.robberies += 1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
 
          parameters = { idStatistic: player.idStatistic, robberies: player.robberies };
 
@@ -589,13 +615,10 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
             })
       } else {
          player.robberies -= 1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
 
          parameters = { idStatistic: player.idStatistic, robberies: player.robberies };
 
@@ -605,17 +628,14 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
             })
       }
    }
 
-   const opFauTeam2 = (index, player, op) => {
+   const opFauTeam2 = (player, op) => {
       if (op) {
          player.faults += 1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
 
          parameters = { idStatistic: player.idStatistic, faults: player.faults };
 
@@ -625,13 +645,24 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
+            })
+
+            faoutRoomB[faoutRoomB.length-1] += 1;
+
+         fetch(`${url}roomUpdate/${idRoom[0]}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+               idStatisticPerRoom: idRoom[0],
+               faoutTeamB: faoutRoomB[faoutRoomB.length-1]
+            })
+         }).then(res => res.text())
+            .then(res => {
+               getScore();
             })
       } else {
          player.faults -= 1;
-         const newArr = [...team2];
-         newArr[index] = player;
-         setTeam2(newArr);
 
          parameters = { idStatistic: player.idStatistic, faults: player.faults };
 
@@ -641,11 +672,25 @@ export const StatisticsPerGame = () => {
             body: JSON.stringify(parameters)
          }).then(res => res.text())
             .then(res => {
-               // getScore();
+               getScore();
+            })
+
+            faoutRoomB[faoutRoomB.length-1] -= 1;
+
+         fetch(`${url}roomUpdate/${idRoom[0]}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+               idStatisticPerRoom: idRoom[0],
+               faoutTeamB: faoutRoomB[faoutRoomB.length-1]
+            })
+         }).then(res => res.text())
+            .then(res => {
+               getScore();
             })
       }
    }
-*/
+
    return (
       <>
          <div>
@@ -691,34 +736,34 @@ export const StatisticsPerGame = () => {
                                  <td>{reg.fullName}</td>
                                  <td>{reg.jacket}</td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opPtTeam1(reg, false, pointRoomA, urlOp, getScore(), url, idRoom)}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opPtTeam1(reg, false)}>-</button>
                                     {reg.points}
-                                    <button type="button" className="btn btn-info" onClick={() => opPtTeam1(reg, true, pointRoomA, urlOp, getScore(), url, idRoom)}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opPtTeam1(reg, true)}>+</button>
                                  </td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opAsTeam1(reg, false, urlOp, getScore())}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opAsTeam1(reg, false)}>-</button>
                                     {reg.assists}
-                                    <button type="button" className="btn btn-info" onClick={() => opAsTeam1(reg, true, urlOp, getScore())}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opAsTeam1(reg, true)}>+</button>
                                  </td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opRebTeam1(reg, false, urlOp, getScore())}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opRebTeam1(reg, false)}>-</button>
                                     {reg.rebounds}
-                                    <button type="button" className="btn btn-info" onClick={() => opRebTeam1(reg, true, urlOp, getScore())}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opRebTeam1(reg, true)}>+</button>
                                  </td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opStoTeam1(reg, false, urlOp, getScore())}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opStoTeam1(reg, false)}>-</button>
                                     {reg.stoppers}
-                                    <button type="button" className="btn btn-info" onClick={() => opStoTeam1(reg, true, urlOp, getScore())}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opStoTeam1(reg, true)}>+</button>
                                  </td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opRobTeam1(reg, false, urlOp, getScore())}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opRobTeam1(reg, false)}>-</button>
                                     {reg.robberies}
-                                    <button type="button" className="btn btn-info" onClick={() => opRobTeam1(reg, true, urlOp, getScore())}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opRobTeam1(reg, true)}>+</button>
                                  </td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opFauTeam1(reg, false, faoutRoomA, urlOp, getScore(), url, idRoom)}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opFauTeam1(reg, false)}>-</button>
                                     {reg.faults}
-                                    <button type="button" className="btn btn-info" onClick={() => opFauTeam1(reg, true, faoutRoomA, urlOp, getScore(), url, idRoom)}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opFauTeam1(reg, true)}>+</button>
                                  </td>
                                  <td>
                                     <button onClick={() => deleteCustomer(reg.idStatistic, reg.game)} className="btn btn-delete">Eliminar</button>
@@ -755,34 +800,34 @@ export const StatisticsPerGame = () => {
                                  <td>{reg.fullName}</td>
                                  <td>{reg.jacket}</td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opPtTeam2(reg, false, pointRoomB, urlOp, getScore(), url, idRoom)}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opPtTeam2(reg, false)}>-</button>
                                     {reg.points}
-                                    <button type="button" className="btn btn-info" onClick={() => opPtTeam2(reg, true, pointRoomB, urlOp, getScore(), url, idRoom)}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opPtTeam2(reg, true)}>+</button>
                                  </td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opAsTeam2(reg, false, urlOp, getScore())}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opAsTeam2(reg, false)}>-</button>
                                     {reg.assists}
-                                    <button type="button" className="btn btn-info" onClick={() => opAsTeam2(reg, true, urlOp, getScore())}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opAsTeam2(reg, true)}>+</button>
                                  </td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opRebTeam2(reg, false, urlOp, getScore())}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opRebTeam2(reg, false)}>-</button>
                                     {reg.rebounds}
-                                    <button type="button" className="btn btn-info" onClick={() => opRebTeam2(reg, true, urlOp, getScore())}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opRebTeam2(reg, true)}>+</button>
                                  </td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opStoTeam2(reg, false, urlOp, getScore())}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opStoTeam2(reg, false)}>-</button>
                                     {reg.stoppers}
-                                    <button type="button" className="btn btn-info" onClick={() => opStoTeam2(reg, true, urlOp, getScore())}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opStoTeam2(reg, true)}>+</button>
                                  </td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opRobTeam2(reg, false, urlOp, getScore())}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opRobTeam2(reg, false)}>-</button>
                                     {reg.robberies}
-                                    <button type="button" className="btn btn-info" onClick={() => opRobTeam2(reg, true, urlOp, getScore())}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opRobTeam2(reg, true)}>+</button>
                                  </td>
                                  <td>
-                                    <button type="button" className="btn btn-delete" onClick={() => opFauTeam2(reg, false, faoutRoomB, urlOp, getScore(), url, idRoom)}>-</button>
+                                    <button type="button" className="btn btn-delete" onClick={() => opFauTeam2(reg, false)}>-</button>
                                     {reg.faults}
-                                    <button type="button" className="btn btn-info" onClick={() => opFauTeam2(reg, true, faoutRoomB, urlOp, getScore(), url, idRoom)}>+</button>
+                                    <button type="button" className="btn btn-info" onClick={() => opFauTeam2(reg, true)}>+</button>
                                  </td>
                                  <td>
                                     <button onClick={() => deleteCustomer(reg.idStatistic)} className="btn btn-delete">Eliminar</button>

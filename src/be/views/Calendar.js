@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useRef, useEffect } from "react"
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -16,7 +16,7 @@ import '../css/buttons.css'
 export const Calendar = () => {
    let parameters;
 
-   const url = 'https://apitorneoliga.onrender.com/api/calendar';
+   const url = 'https://apitorneoliga.onrender.com/api/';
    const urlOp = 'https://apitorneoliga.onrender.com/api/updateCalendar/';
 
    const [calendar, setCalendar] = useState([]);
@@ -33,15 +33,20 @@ export const Calendar = () => {
    const [btnSubmit, setBtnSubmit] = useState('');
    const [operation, setOperation] = useState(1);
 
+   // const refFundPlayer = useRef();
+   // const refFadeUp = useRef();
+   // const refPhotoTeam1 = useRef();
+   // const refPhotoTeam2 = useRef();
+
    useEffect(() => {
       getCalendar();
    }, []);
 
    const getCalendar = async () => {
-      const res = await axios.get(url);
+      const res = await axios.get(`${url}calendar`);
       setCalendar(res.data);
       
-      const reg = await axios.get('https://apitorneoliga.onrender.com/api/team');
+      const reg = await axios.get(`${url}team`);
       setTeamList(reg.data);
    }
 
@@ -124,7 +129,7 @@ export const Calendar = () => {
                body: JSON.stringify(parameters)
             }
       
-            fetch('https://apitorneoliga.onrender.com/api/updateCalendar/' + ids, requestInit)
+            fetch(urlOp + ids, requestInit)
             .then(res => res.text())
             .then(res => {
                let msj = 'Calendario Actualizado';
@@ -159,7 +164,7 @@ export const Calendar = () => {
                method: 'DELETE'
             }
       
-            fetch('https://apitorneoliga.onrender.com/api/deleteCalendar/' + id, requestInit)
+            fetch(`${url}deleteCalendar/` + id, requestInit)
             .then(res => res.text())
             .then(res => console.log(res))
 
