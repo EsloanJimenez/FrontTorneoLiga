@@ -171,20 +171,27 @@ export const StatisticsPerGame = () => {
    const validatePeriod = () => {
       if (nameGame === "0") show_alerta('Seleccione el partido', 'warning')
       else {
+         console.log('entro en el else');
          const requestInitRoom = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ game: nameGame, pointsTeamA: 0, pointsTeamB: 0 })
          }
 
+         console.log('antes del fetch');
+
          fetch(`${url}room`, requestInitRoom)
             .then(res => res.text())
             .then(res => {
+               console.log('dentro del 2do then');
                if (res === 'success') {
+                  console.log('dentro del if que esta dentro del them');
                   refFundPeriod.current.classList.remove('fade-Up');
                   refFundPeriod.current.classList.add('fadeUp');
                }
             })
+            
+            console.log('dentro del fetch');
       }
    }
 
