@@ -181,8 +181,7 @@ export const StatisticsPerGame = () => {
          console.log('antes del fetch');
 
          fetch(`${url}room`, requestInitRoom)
-         console.log('entro en el fetch')
-            // .then(res => res.text())
+            .then(res => res.text())
             .then(res => {
                console.log('dentro del 2do then');
                if (res === 'success') {
