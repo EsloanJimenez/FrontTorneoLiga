@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import '../css/board.css'
 
 let temporizador, periodos, i = 0;
