@@ -30,13 +30,8 @@ export const Board = ({ ptTeam1, ptTeam2, board, periodo, room }) => {
          })
       }
 
-      console.log('entro en el effect');
-
       fetch('https://apitorneoliga.onrender.com/api/roomInsert', requestInit)
          .then(res => res.text())
-      // }
-
-      console.log('luego del fetch');
    }, [periodos]);
 
    return (
