@@ -17,8 +17,8 @@ import '../css/register.css'
 import '../css/buttons.css'
 
 export const StatisticsPerGame = () => {
-   const url = 'https://apitorneoliga.onrender.com/api/'
-   const urlOp = 'https://apitorneoliga.onrender.com/api/updateStatisticsPerPlayer/';
+   const url = 'http://localhost:9000/api/'
+   const urlOp = 'http://localhost:9000/api/updateStatisticsPerPlayer/';
 
    const [team1, setTeam1] = useState([]);
    const [team2, setTeam2] = useState([]);
@@ -208,7 +208,7 @@ export const StatisticsPerGame = () => {
                method: 'DELETE'
             }
 
-            fetch('https://apitorneoliga.onrender.com/api/deleteStatisticsPerPlayer/' + idPlayer, requestInit)
+            fetch('http://localhost:9000/api/deleteStatisticsPerPlayer/' + idPlayer, requestInit)
                .then(res => res.text())
                .then(res => console.log(res))
 
@@ -739,7 +739,7 @@ export const StatisticsPerGame = () => {
                         {
                            team1.map((reg, index) => (
                               <tr key={reg.idStatistic}>
-                                 <td>{<img className="imgStatist" src={`https://apitorneoliga.onrender.com/${reg.photo}`} alt="imagen rota" />}</td>
+                                 <td>{<img className="imgStatist" src={`http://localhost:9000/${reg.photo}`} alt="imagen rota" />}</td>
                                  <td>{reg.fullName}</td>
                                  <td>{reg.jacket}</td>
                                  <td>
@@ -803,7 +803,7 @@ export const StatisticsPerGame = () => {
                         {
                            team2.map((reg, index) => (
                               <tr key={index}>
-                                 <td>{<img className="imgStatist" src={`https://apitorneoliga.onrender.com/${reg.photo}`} alt="imagen rota" />}</td>
+                                 <td>{<img className="imgStatist" src={`http://localhost:9000/${reg.photo}`} alt="imagen rota" />}</td>
                                  <td>{reg.fullName}</td>
                                  <td>{reg.jacket}</td>
                                  <td>

@@ -4,7 +4,7 @@ import axios from 'axios';
 import '../css/playOff.css'
 
 export const PlayOff = () => {
-   const url = 'https://apitorneoliga.onrender.com/api/';
+   const url = 'http://localhost:9000/api/';
 
    const [calendar, setCalendar] = useState([]);
 
@@ -38,7 +38,7 @@ export const PlayOff = () => {
             calendar.map((reg, i) => (
                <div key={i} className='playInn' id={i == 1 ? 'round2' : i == 2 ? 'round3' : i == 3 ? 'round4' : ''}>
                   <div className='teamA fadeUp'>
-                     <img width="50px" src={`https://apitorneoliga.onrender.com/${reg.photoTeam1}`} alt="imagen rota" />
+                     <img width="50px" src={`http://localhost:9000/${reg.photoTeam1}`} alt="imagen rota" />
                      {reg.nameTeam1}
                   </div>
 
@@ -49,7 +49,7 @@ export const PlayOff = () => {
 
                   <div className="teamB fadeRight">
                      {reg.nameTeam2}
-                     <img width="50px" src={`https://apitorneoliga.onrender.com/${reg.photoTeam2}`}/>
+                     <img width="50px" src={`http://localhost:9000/${reg.photoTeam2}`}/>
                   </div>
                </div>
             ))

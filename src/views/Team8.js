@@ -10,7 +10,7 @@ import { Player } from "../components/Player";
 import { Footer } from '../components/Footer';
 
 export const Team8 = () => {
-   const url = 'https://apitorneoliga.onrender.com/api/';
+   const url = 'http://localhost:9000/api/';
 
    const [player, setPlayer] = useState([]);
    const [visitCounter, setVisitCounter] = useState();

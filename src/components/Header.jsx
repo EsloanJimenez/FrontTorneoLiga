@@ -40,7 +40,7 @@ export const Header = () => {
    }, [])
 
    const getTeamList = async () => {
-      const tl = await axios(`https://apitorneoliga.onrender.com/api/team`);
+      const tl = await axios(`http://localhost:9000/api/team`);
       setTeamList(tl.data);
    }
 

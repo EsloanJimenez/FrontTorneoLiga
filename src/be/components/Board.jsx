@@ -30,7 +30,7 @@ export const Board = ({ ptTeam1, ptTeam2, board, periodo, room }) => {
          })
       }
 
-      fetch('https://apitorneoliga.onrender.com/api/roomInsert', requestInit)
+      fetch('http://localhost:9000/api/roomInsert', requestInit)
          .then(res => res.text())
    }, [periodos]);
 

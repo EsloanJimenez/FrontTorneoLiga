@@ -17,8 +17,8 @@ import '../css/register.css'
 import '../css/buttons.css';
 
 export const StatisticsPerGamePlayOff = () => {
-   const url = 'https://apitorneoliga.onrender.com/api/'
-   const urlOp = 'https://apitorneoliga.onrender.com/api/operationStatistiPlayOff/';
+   const url = 'http://localhost:9000/api/'
+   const urlOp = 'http://localhost:9000/api/operationStatistiPlayOff/';
 
    const [team1, setTeam1] = useState([]);
    const [team2, setTeam2] = useState([]);
@@ -202,7 +202,7 @@ export const StatisticsPerGamePlayOff = () => {
                method: 'DELETE'
             }
 
-            fetch('https://apitorneoliga.onrender.com/api/deleteStatisticsPerPlayerPlayOff/' + idPlayer, requestInit)
+            fetch('http://localhost:9000/api/deleteStatisticsPerPlayerPlayOff/' + idPlayer, requestInit)
                .then(res => res.text())
                .then(res => console.log(res))
 

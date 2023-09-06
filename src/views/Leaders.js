@@ -8,7 +8,7 @@ import { Footer } from "../components/Footer";
 import '../css/home.css';
 
 const Leaders = () => {
-   const url = 'https://apitorneoliga.onrender.com/api/'
+   const url = 'http://localhost:9000/api/'
 
    const [leaderPoints, setLeaderPoints] = useState([]);
    const [leaderAssists, setLeaderAssists] = useState([]);

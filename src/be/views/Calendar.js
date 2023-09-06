@@ -16,8 +16,8 @@ import '../css/buttons.css'
 export const Calendar = () => {
    let parameters;
 
-   const url = 'https://apitorneoliga.onrender.com/api/';
-   const urlOp = 'https://apitorneoliga.onrender.com/api/updateCalendar/';
+   const url = 'http://localhost:9000/api/';
+   const urlOp = 'http://localhost:9000/api/updateCalendar/';
 
    const [calendar, setCalendar] = useState([]);
    const [ids, setIds] = useState('');
@@ -269,7 +269,7 @@ export const Calendar = () => {
                               <td>{reg.idCalendar}</td>
                               <td>{reg.nameGame}</td>
                               <td>{reg.team1}</td>
-                              <td>{<img src={`https://apitorneoliga.onrender.com/${reg.photoTeam1}` } alt="imagen rota" />}</td>
+                              <td>{<img src={`http://localhost:9000/${reg.photoTeam1}` } alt="imagen rota" />}</td>
                               <td>{reg.date}</td>
                               <td>
                                  <button type="button" className="btn btn-delete" onClick={()=> gameRoom(index, reg, false)}>-</button>
@@ -278,7 +278,7 @@ export const Calendar = () => {
                               </td>
                               <td>{reg.time}</td>
                               <td>{reg.team2}</td>
-                              <td>{<img src={`https://apitorneoliga.onrender.com/${reg.photoTeam2}` } alt="imagen rota" />}</td>
+                              <td>{<img src={`http://localhost:9000/${reg.photoTeam2}` } alt="imagen rota" />}</td>
                               <td>
                                  <button type="button" className="btn btn-delete" onClick={()=> gameStatus(index, reg, false)}>-</button>
                                  {reg.status}
