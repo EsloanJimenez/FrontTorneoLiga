@@ -180,7 +180,7 @@ export const StatisticsPerGame = () => {
 
          console.log('antes del fetch');
 
-         fetch(`${url}room`, requestInitRoom)
+         fetch(`${url}roomInsert`, requestInitRoom)
             .then(res => res.text())
             .then(res => {
                console.log('dentro del 2do then');
@@ -904,11 +904,11 @@ export const StatisticsPerGame = () => {
                      <div className="card-body">
                         <div className="mb-3">
                            <label htmlFor="nameGame" className="form-label">Seleccione Periodo</label>
-                           <select className="form-control" id="nameGame" name="nameGame" onChange={(e) => setNameGame(e.target.value)}>
+                           <select className="form-control" id="nameGame" name="nameGame" onChange={(e) => {setNameGame(e.target.value); console.log(e.target.value);}}>
                               <option value="0">Seleccione El Partido</option>
                               {
                                  nameGameList.map((gameList) =>
-                                    <option key={gameList.idCalendarPlayOff} value={gameList.idCalendarPlayOff}>{gameList.nameGame}</option>
+                                    <option key={gameList.idCalendar} value={gameList.idCalendar}>{gameList.nameGame}</option>
                                  )
                               }
                            </select>

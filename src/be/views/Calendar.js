@@ -24,6 +24,8 @@ export const Calendar = () => {
    const [nameGame, setNameGame] = useState('');
    const [gameDate, setGameDate] = useState('');
    const [teamList, setTeamList] = useState([]);
+   const [nameTeam1, setNameTeam1] = useState('');
+   const [nameTeam2, setNameTeam2] = useState('');
    const [team1, setTeam1] = useState(0);
    const [team2, setTeam2] = useState(0);
    const [photoTeam1, setPhotoTeam1] = useState(null);
@@ -94,7 +96,7 @@ export const Calendar = () => {
       if(nameGame.trim() === "") show_alerta('Escriba el nombre del partido', 'warning')
       else {
          if(operation === 1) {
-            parameters = {nameGame: nameGame, gameDate: gameDate, team1: team1, team2:team2, photoTeam1: photoTeam1, photoTeam2: photoTeam2, status: status};
+            parameters = {nameGame: nameGame, gameDate: gameDate, nameTeam1: nameTeam1, nameTeam2: nameTeam2, team1: team1, team2:team2, photoTeam1: photoTeam1, photoTeam2: photoTeam2, status: status};
 
             const requestInit = {
                method: 'POST',
@@ -102,7 +104,7 @@ export const Calendar = () => {
                body: JSON.stringify(parameters)
             }
       
-            fetch(url, requestInit)
+            fetch(`${url}calendar`, requestInit)
             .then(res => res.text())
             .then(res => {
             
@@ -121,7 +123,7 @@ export const Calendar = () => {
             })
 
          } else if(operation === 2) {
-            parameters = {idCalendar:ids, nameGame: nameGame, gameDate:gameDate, team1:team1,team2:team2, photoTeam1: photoTeam1, photoTeam2: photoTeam2,status: status};
+            parameters = {idCalendar:ids, nameGame: nameGame, gameDate:gameDate, nameTeam1: nameTeam1, nameTeam2: nameTeam2, team1:team1,team2:team2, photoTeam1: photoTeam1, photoTeam2: photoTeam2,status: status};
 
             const requestInit = {
                method: 'PUT',
@@ -313,7 +315,17 @@ export const Calendar = () => {
                         <input type="text" className="form-control" id="nameGame" name="nameGame" value={nameGame} onChange={(e) => setNameGame(e.target.value)} />
                      </div>
                      <div className="mb-3">
-                        <label for="team1" className="form-label">Equipo 1</label>
+                        <label for="team1" className="form-label">Nombre Equipo 1</label>
+                        <select className="form-control" id="team1" name="team1"  onChange={(e) => setNameTeam1(e.target.value)}>
+                           {
+                              teamList.map((tm) => 
+                                 <option key={tm.idTeam} value={tm.nameTeam}>{tm.nameTeam}</option>
+                              )
+                           }
+                        </select>
+                     </div>
+                     <div className="mb-3">
+                        <label for="team1" className="form-label">Identificador Equipo 1</label>
                         <select className="form-control" id="team1" name="team1"  onChange={(e) => setTeam1(e.target.value)}>
                            {
                               teamList.map((tm) => 
@@ -327,7 +339,17 @@ export const Calendar = () => {
                         <input type="file" className="form-control" id="photoTeam1" name="photoTeam1" onChange={(e) => setPhotoTeam1(e.target.files[0].name)} />
                      </div>
                      <div className="mb-3">
-                        <label for="team2" className="form-label">Equipo 2</label>
+                        <label for="team2" className="form-label">Nombre Equipo 2</label>
+                        <select className="form-control" id="team2" name="team2"  onChange={(e) => setNameTeam2(e.target.value)}>
+                           {
+                              teamList.map((tm) => 
+                                 <option key={tm.idTeam} value={tm.nameTeam}>{tm.nameTeam}</option>
+                              )
+                           }
+                        </select>
+                     </div>
+                     <div className="mb-3">
+                        <label for="team2" className="form-label">Identificador Equipo 2</label>
                         <select className="form-control" id="team2" name="team2"  onChange={(e) => setTeam2(e.target.value)}>
                            {
                               teamList.map((tm) => 
