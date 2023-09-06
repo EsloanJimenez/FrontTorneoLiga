@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import '../css/board.css'
 
-let temporizador, periodos, i = 0;
+let temporizador, periodos, element;
 
 export const Board = ({ ptTeam1, ptTeam2, board, periodo, room }) => {
    const elementoEncontrado = board.find(reg => reg.room >= 0);
@@ -14,12 +14,16 @@ export const Board = ({ ptTeam1, ptTeam2, board, periodo, room }) => {
       console.log(`El elemento no fue encontrado`);
    }
 
+   for (let i = 0; i < board.length; i++) {
+      element = board[i].game;
+   }
+
    useEffect(() => {
       const requestInit = {
          method: 'POST',
          headers: { 'Content-Type': 'application/json' },
          body: JSON.stringify({
-            game: ptTeam1.map(reg => reg.game),
+            game: element,
             period: i + 1,
             pointsTeamA: 0,
             pointsTeamB: 0,
