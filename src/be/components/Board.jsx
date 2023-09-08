@@ -24,7 +24,7 @@ export const Board = ({ ptTeam1, ptTeam2, board, periodo, room }) => {
          headers: { 'Content-Type': 'application/json' },
          body: JSON.stringify({
             game: element,
-            period: i + 1,
+            period: periodos,
             pointsTeamA: 0,
             pointsTeamB: 0,
             faoutTeamA: 0,
